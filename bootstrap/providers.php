@@ -1,10 +1,7 @@
 <?php
 
-use Lightit\Shared\App\Providers\AppServiceProvider;
-use Lightit\Shared\App\Providers\EventServiceProvider;
-
-
 return [
-    AppServiceProvider::class,
-    EventServiceProvider::class,
+    App\Providers\TelescopeServiceProvider::class,
+    Lightit\Shared\App\Providers\AppServiceProvider::class,
+    Lightit\Shared\App\Providers\EventServiceProvider::class,
 ];

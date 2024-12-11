@@ -2,6 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Lightit\Backoffice\Books\App\Controllers\DeleteBookController;
+use Lightit\Backoffice\Books\App\Controllers\GetBookController;
+use Lightit\Backoffice\Books\App\Controllers\ListBookController;
+use Lightit\Backoffice\Books\App\Controllers\StoreBookController;
 use Lightit\Backoffice\Users\App\Controllers\DeleteUserController;
 use Lightit\Backoffice\Users\App\Controllers\GetUserController;
 use Lightit\Backoffice\Users\App\Controllers\ListUserController;
@@ -34,4 +38,19 @@ Route::prefix('users')
         Route::get('/{user}', GetUserController::class)->withTrashed();
         Route::post('/', StoreUserController::class);
         Route::delete('/{user}', DeleteUserController::class);
+    });
+
+
+/*
+|--------------------------------------------------------------------------
+| Books Routes
+|--------------------------------------------------------------------------
+*/
+Route::prefix('books')
+    ->middleware([])
+    ->group(static function () {
+        Route::get('/', ListBookController::class);
+        Route::get('/{book}', GetBookController::class)->withTrashed();
+        Route::post('/', StoreBookController::class);
+        Route::delete('/{book}', DeleteBookController::class);
     });
