@@ -1,5 +1,5 @@
 services:
-    laravel.test:
+    meili.test:
         build:
             context: ./vendor/laravel/sail/runtimes/8.3
             dockerfile: Dockerfile
@@ -26,6 +26,7 @@ services:
             - redis
             - minio
             - mailpit
+            - meilisearch
     pgsql:
         image: 'postgres:16'
         ports:
@@ -87,6 +88,18 @@ services:
             - '${FORWARD_MAILPIT_DASHBOARD_PORT:-8025}:8025'
         networks:
             - sail
+    meilisearch:
+        image: "getmeili/meilisearch:latest"
+        ports:
+            - "${FORWARD_MEILISEARCH_PORT:-7700}:7700"
+        volumes:
+            - "sail-meilisearch:/meili_data"
+        networks:
+            - sail
+        healthcheck:
+            test: [ "CMD", "wget", "--no-verbose", "--spider", "http://localhost:7700/health" ]
+            retries: 3
+            timeout: 5s
 networks:
     sail:
         driver: bridge
@@ -96,4 +109,6 @@ volumes:
     sail-redis:
         driver: local
     sail-minio:
+        driver: local
+    sail-meilisearch:
         driver: local
