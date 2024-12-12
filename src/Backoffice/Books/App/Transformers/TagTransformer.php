@@ -12,8 +12,7 @@ class TagTransformer extends Transformer
     public function transform(Tag $tag): array
     {
         return [
-            'id' => $tag->id,
-            'name' => $tag->name,
+            $tag->name,
         ];
     }
 }

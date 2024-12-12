@@ -1,5 +1,7 @@
 <?php
 
+use Lightit\Backoffice\Books\Domain\Models\Book;
+
 return [
 
     /*
@@ -136,6 +138,10 @@ return [
         'index-settings' => [
             'users' => [
                'filterableAttributes'=> ['id', 'name', 'email'],
+            ],
+            Book::class => [
+                'filterableAttributes' => ['title', 'description', 'tags', 'author', 'category'],
+                'sortableAttributes' => ['title'],
             ],
         ],
     ],

@@ -7,6 +7,8 @@ namespace Lightit\Backoffice\Books\Domain\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Scout\Searchable;
+use Lightit\Backoffice\Books\App\Transformers\BookTransformer;
 use Lightit\Backoffice\Users\Domain\Models\User;
 
 /**
@@ -41,6 +43,7 @@ class Book extends Model
 {
     use HasApiTokens;
     use Notifiable;
+    use Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -71,5 +74,10 @@ class Book extends Model
     public function tags()
     {
         return $this->hasMany(Tag::class);
+    }
+
+    public function toSearchableArray(): array
+    {
+        return transformation($this, BookTransformer::class)->transform() ?? [];
     }
 }
